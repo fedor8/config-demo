@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorInterval="60">
+    <Properties>
+        <Property name="logPattern">%d %p %c{1.} [%t] %m%n</Property>
+        <Property name="directory">logs</Property>
+        <Property name="fileFormat">%d{MM-dd-yyyy}</Property>
+        <Property name="archiveExtension">log.bz2</Property>
+        <Property name="application">bo-user-management-service</Property>
+    </Properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${logPattern}"/>
+        </Console>
+        <RollingFile name="FileLog" fileName="${directory}/${application}.log"
+          filePattern="${directory}/${application}.log-${fileFormat}-%i.${archiveExtension}">
+            <PatternLayout pattern="${logPattern}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+        </RollingFile>
+        <RollingFile name="FileErrorLog" fileName="${directory}/${application}-error.log"
+          filePattern="${directory}/${application}-error.log-${fileFormat}-%i.${archiveExtension}">
+            <PatternLayout pattern="${logPattern}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+        </RollingFile>
+        <Socket name="Logstash" host="${env:LOGSTASH_HOST:-localhost}" port="${env:LOGSTASH_PORT:-12201}"
+          protocol="tcp" bufferedIo="true" reconnectDelayMillis="30000" connectTimeoutMillis="15000">
+            <GelfLayout includeStackTrace="true" includeThreadContext="true"
+              includeNullDelimiter="true"
+              compressionType="OFF">
+                <KeyValuePair key="application" value="${application}"/>
+            </GelfLayout>
+        </Socket>
+    </Appenders>
+    <Loggers>
+        <AsyncLogger name="com.asseco.bo.user.application.controller.AddUserController" level="DEBUG" additivity="false">
+            <AppenderRef ref="Logstash"/>
+            <AppenderRef ref="Console"/>
+        </AsyncLogger>
+        <AsyncLogger name="com.asseco.bo.shared.common.domain.data.DataLoaderListener" level="ERROR" additivity="false">
+            <AppenderRef ref="Logstash"/>
+            <AppenderRef ref="Console"/>
+        </AsyncLogger>
+        <AsyncLogger name="com.asseco" level="ERROR" additivity="false">
+            <AppenderRef ref="Logstash"/>
+            <AppenderRef ref="Console"/>
+        </AsyncLogger>
+        <AsyncLogger name="com.asseco.bo" level="INFO" additivity="false">
+            <AppenderRef ref="Logstash"/>
+            <AppenderRef ref="Console"/>
+        </AsyncLogger>
+        <AsyncLogger name="org.springframework" level="ERROR" additivity="false">
+            <AppenderRef ref="Logstash"/>
+            <AppenderRef ref="Console"/>
+        </AsyncLogger>
+        <Root level="ERROR">
+            <AppenderRef ref="Logstash"/>
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>
