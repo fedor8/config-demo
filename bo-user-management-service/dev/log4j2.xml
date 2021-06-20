@@ -36,11 +36,11 @@
             </GelfLayout>
         </Socket>
     </Appenders>
-    <Loggers>
+    <Loggers><!--
         <AsyncLogger name="com.asseco.bo.user.application.controller.AddUserController" level="ERROR" additivity="false">
             <AppenderRef ref="Logstash"/>
             <AppenderRef ref="Console"/>
-        </AsyncLogger>
+        </AsyncLogger>-->
         <AsyncLogger name="com.asseco.bo.shared.common.domain.data.DataLoaderListener" level="ERROR" additivity="false">
             <AppenderRef ref="Logstash"/>
             <AppenderRef ref="Console"/>
