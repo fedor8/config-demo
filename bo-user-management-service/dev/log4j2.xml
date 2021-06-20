@@ -37,7 +37,7 @@
         </Socket>
     </Appenders>
     <Loggers>
-        <AsyncLogger name="com.asseco.bo.user.application.controller.AddUserController" level="INFO" additivity="false">
+        <AsyncLogger name="com.asseco.bo.user.application.controller.AddUserController" level="DEBUG" additivity="false">
             <AppenderRef ref="Logstash"/>
             <AppenderRef ref="Console"/>
         </AsyncLogger>
