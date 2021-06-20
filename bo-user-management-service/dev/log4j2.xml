@@ -27,7 +27,7 @@
                 <SizeBasedTriggeringPolicy size="100 MB"/>
             </Policies>
         </RollingFile>
-        <Socket name="Logstash" host="${env:LOGSTASH_HOST:-localhost}" port="${env:LOGSTASH_PORT:-12201}"
+        <Socket name="Logstash" host="host.docker.internal" port="12201"
           protocol="tcp" bufferedIo="true" reconnectDelayMillis="30000" connectTimeoutMillis="15000">
             <GelfLayout includeStackTrace="true" includeThreadContext="true"
               includeNullDelimiter="true"
