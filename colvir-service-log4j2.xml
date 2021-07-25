@@ -37,7 +37,7 @@
         </Socket>
     </Appenders>
     <Loggers>
-        <AsyncLogger name="com.rstyle.omni.ebanking.currency.application.web.handler" level="INFO" additivity="false">
+        <AsyncLogger name="com.rstyle.omni.ebanking.currency.application.web.handler" level="DEBUG" additivity="false">
             <AppenderRef ref="Logstash"/>
             <AppenderRef ref="Console"/>
         </AsyncLogger>
