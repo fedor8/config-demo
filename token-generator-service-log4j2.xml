@@ -41,15 +41,11 @@
             <AppenderRef ref="Logstash"/>
             <AppenderRef ref="Console"/>
         </AsyncLogger>
+        <AsyncLogger name="ge.hbg.tokengenerator.controller" level="DEBUG" additivity="false">
+            <AppenderRef ref="Logstash"/>
+            <AppenderRef ref="Console"/>
+        </AsyncLogger>
         <AsyncLogger name="ge.hbg.tokengenerator" level="INFO" additivity="false">
-            <AppenderRef ref="Logstash"/>
-            <AppenderRef ref="Console"/>
-        </AsyncLogger>
-        <AsyncLogger name="org" level="WARN" additivity="false">
-            <AppenderRef ref="Logstash"/>
-            <AppenderRef ref="Console"/>
-        </AsyncLogger>
-        <AsyncLogger name="com" level="WARN" additivity="false">
             <AppenderRef ref="Logstash"/>
             <AppenderRef ref="Console"/>
         </AsyncLogger>
